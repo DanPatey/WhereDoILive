@@ -34,29 +34,19 @@
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
     CLLocation *newLocation = [locations lastObject];
-    [geocoder reverseGeocodeLocation:newLocation completionHandler:^(NSArray *placemarks, NSError *error) {
-        if (error == nil && [placemarks count] > 0) {
+        if (UIApplication.sharedApplication.applicationState == UIApplicationStateActive) {
 //            NSLog(@"********* Updating Location *********");
 //            NSLog(@"latitude: %@", txtLatitude);
 //            NSLog(@"longitude: %@", txtLongitude);
 //            NSLog(@"");
-            placemark = [placemarks lastObject];
             txtLatitude.text = [NSString stringWithFormat:@"%f",newLocation.coordinate.latitude];
             txtLongitude.text = [NSString stringWithFormat:@"%f",newLocation.coordinate.longitude];
-            printf("locationManager Fired");
+            printf("AppIsActive\n");
         }
         else {
-            NSLog(@"Cannot find location");
+            NSLog(@"App is backgrounded. New location is %@", locations);
         }
-    }];
 }
-
--(void) applicationDidEnterBackground:(UIApplication *) application
-{
-    [locationManager startUpdatingLocation];
-    printf("Entered background");
-}
-
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
     NSLog(@"Cannot find location");
 }
