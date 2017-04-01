@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		57462D261E8F9F0600A91AE4 /* test.plist in Resources */ = {isa = PBXBuildFile; fileRef = 57462D251E8F9F0600A91AE4 /* test.plist */; };
+		57462D261E8F9F0600A91AE4 /* longitude.plist in Resources */ = {isa = PBXBuildFile; fileRef = 57462D251E8F9F0600A91AE4 /* longitude.plist */; };
+		57462D281E9042EE00A91AE4 /* latitude.plist in Resources */ = {isa = PBXBuildFile; fileRef = 57462D271E9042EE00A91AE4 /* latitude.plist */; };
 		575C16FF1E820356001A9FFC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 575C16FE1E820356001A9FFC /* main.m */; };
 		575C17021E820356001A9FFC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 575C17011E820356001A9FFC /* AppDelegate.m */; };
 		575C17051E820356001A9FFC /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 575C17041E820356001A9FFC /* ViewController.m */; };
@@ -18,7 +19,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		57462D251E8F9F0600A91AE4 /* test.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = test.plist; sourceTree = "<group>"; };
+		57462D251E8F9F0600A91AE4 /* longitude.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = longitude.plist; sourceTree = "<group>"; };
+		57462D271E9042EE00A91AE4 /* latitude.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = latitude.plist; sourceTree = "<group>"; };
 		575C16FA1E820356001A9FFC /* WhereDoILive.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WhereDoILive.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		575C16FE1E820356001A9FFC /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		575C17001E820356001A9FFC /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -72,7 +74,8 @@
 				575C17091E820356001A9FFC /* Assets.xcassets */,
 				575C170B1E820356001A9FFC /* LaunchScreen.storyboard */,
 				575C170E1E820356001A9FFC /* Info.plist */,
-				57462D251E8F9F0600A91AE4 /* test.plist */,
+				57462D271E9042EE00A91AE4 /* latitude.plist */,
+				57462D251E8F9F0600A91AE4 /* longitude.plist */,
 				575C16FD1E820356001A9FFC /* Supporting Files */,
 			);
 			path = WhereDoILive;
@@ -153,7 +156,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				57462D261E8F9F0600A91AE4 /* test.plist in Resources */,
+				57462D261E8F9F0600A91AE4 /* longitude.plist in Resources */,
+				57462D281E9042EE00A91AE4 /* latitude.plist in Resources */,
 				575C170D1E820356001A9FFC /* LaunchScreen.storyboard in Resources */,
 				575C170A1E820356001A9FFC /* Assets.xcassets in Resources */,
 				575C17081E820356001A9FFC /* Main.storyboard in Resources */,

@@ -11,7 +11,6 @@
 @interface ViewController () {
     CLGeocoder *geocoder;
 }
-
 @end
 
 @implementation ViewController
@@ -34,8 +33,8 @@
     // Pull in the latest Lat and Long and truncate to two decimal places for comparison
     double currentLatitude = trunc(manager.location.coordinate.latitude * 100) / 100;
     double currentLongitude = trunc(manager.location.coordinate.longitude * 100) / 100;
-    NSLog(@"Current Latitude is: %f\n", currentLatitude);
-    NSLog(@"Current Longitude is: %f\n", currentLongitude);
+//    NSLog(@"Current Latitude is: %f\n", currentLatitude);
+//    NSLog(@"Current Longitude is: %f\n", currentLongitude);
     
     // Create a comparison for 11pm
     NSDate *earliestTime = [NSDate date];
@@ -60,20 +59,43 @@
 //    NSString *newDateString = [outputFormatter stringFromDate:now];
 //    NSLog(@"newDateString %@", newDateString);
     
-    // If it's between 11pm and 5am set lat and long as "home"
+    // If it's between 11pm and 5am grab lat and long
     if ([now timeIntervalSinceDate:earliestTime] > 0 || [now timeIntervalSinceDate:latestTime] < 0) {
-        
         printf("It's between 11pm and 5am. Time for a ping. \n");
         
-        NSString *path = [[NSBundle mainBundle] pathForResource:@"test" ofType:@"plist"];
-        NSMutableArray *timesArray = [NSMutableArray arrayWithContentsOfFile:path];
+        NSString *longitudePlist = [[NSBundle mainBundle] pathForResource:@"longitude" ofType:@"plist"];
+        NSMutableArray *longitudeArray = [NSMutableArray arrayWithContentsOfFile:longitudePlist];
+        NSString *latitudePlist = [[NSBundle mainBundle] pathForResource:@"latitude" ofType:@"plist"];
+        NSMutableArray *latitudeArray = [NSMutableArray arrayWithContentsOfFile:latitudePlist];
         
-        [timesArray addObject:[NSNumber numberWithDouble:currentLongitude]];
-        [timesArray addObject:[NSNumber numberWithDouble:currentLatitude]];
-        [timesArray writeToFile:@"/Users/danpatey/workspace/WhereDoILive/WhereDoILive/test.plist" atomically:YES];
+        [longitudeArray addObject:[NSNumber numberWithDouble:currentLongitude]];
+        [latitudeArray addObject:[NSNumber numberWithDouble:currentLatitude]];
         
-        NSLog(@"%@", timesArray);
+        [longitudeArray writeToFile:@"/Users/danpatey/workspace/WhereDoILive/WhereDoILive/longitude.plist" atomically:YES];
+        [latitudeArray writeToFile:@"/Users/danpatey/workspace/WhereDoILive/WhereDoILive/latitude.plist" atomically:YES];
         
+        // Find the most common occurances and set those to the phone's "home"
+        NSCountedSet *longitudeBag = [[NSCountedSet alloc] initWithArray:longitudeArray];
+        NSString *mostOccuringLongitude;
+        NSUInteger highestLong = 0;
+        for (NSString *s in longitudeBag) {
+            if([longitudeBag countForObject:s] > highestLong) {
+                highestLong = [longitudeBag countForObject:s];
+                mostOccuringLongitude = s;
+            }
+        }
+        
+        NSCountedSet *latitudeBag = [[NSCountedSet alloc] initWithArray:latitudeArray];
+        NSString *mostOccuringLatitude;
+        NSUInteger highestLat = 0;
+        for (NSString *s in latitudeBag) {
+            if([latitudeBag countForObject:s] > highestLat) {
+                highestLat = [latitudeBag countForObject:s];
+                mostOccuringLatitude = s;
+            }
+        }
+        
+        NSLog(@"This phone lives at: %@, %@", mostOccuringLongitude, mostOccuringLatitude);
     }
 }
 
