@@ -31,11 +31,11 @@
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
-    // Pull in the latest Lat and Long
-    float latitude = manager.location.coordinate.latitude;
-    float longitude = manager.location.coordinate.longitude;
-    NSLog(@"Current Latitude is: %f", latitude);
-    NSLog(@"Current Longitude is: %f", longitude);
+    // Pull in the latest Lat and Long and truncate to two decimal places for comparison
+    double currentLatitude = trunc(manager.location.coordinate.latitude * 100) / 100;
+    double currentLongitude = trunc(manager.location.coordinate.longitude * 100) / 100;
+    NSLog(@"Current Latitude is: %f\n", currentLatitude);
+    NSLog(@"Current Longitude is: %f\n", currentLongitude);
     
     // Create a comparison for 11pm
     NSDate *earliestTime = [NSDate date];
@@ -57,14 +57,24 @@
     NSDate * now = [NSDate date];
     NSDateFormatter *outputFormatter = [[NSDateFormatter alloc] init];
     [outputFormatter setDateFormat:@"HH:mm:ss"];
-    NSString *newDateString = [outputFormatter stringFromDate:now];
-    NSLog(@"newDateString %@", newDateString);
+//    NSString *newDateString = [outputFormatter stringFromDate:now];
+//    NSLog(@"newDateString %@", newDateString);
     
     // If it's between 11pm and 5am set lat and long as "home"
-    if ( [now timeIntervalSinceDate:earliestTime] > 0 && [now timeIntervalSinceDate:latestTime] < 0) {
-        printf("This phone lives at:\n latitude: %f\n longitude: %f",latitude, longitude);
+    if ([now timeIntervalSinceDate:earliestTime] > 0 || [now timeIntervalSinceDate:latestTime] < 0) {
+        
+        printf("It's between 11pm and 5am. Time for a ping. \n");
+        
+        NSString *path = [[NSBundle mainBundle] pathForResource:@"test" ofType:@"plist"];
+        NSMutableArray *timesArray = [NSMutableArray arrayWithContentsOfFile:path];
+        
+        [timesArray addObject:[NSNumber numberWithDouble:currentLongitude]];
+        [timesArray addObject:[NSNumber numberWithDouble:currentLatitude]];
+        [timesArray writeToFile:@"/Users/danpatey/workspace/WhereDoILive/WhereDoILive/test.plist" atomically:YES];
+        
+        NSLog(@"%@", timesArray);
+        
     }
-    
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
