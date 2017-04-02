@@ -8,21 +8,14 @@
 
 #import "ViewController.h"
 
-@interface ViewController () {
-    CLGeocoder *geocoder;
-}
-@end
-
-@implementation ViewController
+@implementation ViewController;
 @synthesize locationManager;
-@synthesize txtLongitude, txtLatitude;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    geocoder = [[CLGeocoder alloc] init];
     if (locationManager == nil) {
         locationManager = [[CLLocationManager alloc] init];
-        locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters;
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest;
         locationManager.delegate = self;
         [locationManager requestAlwaysAuthorization];
     }

@@ -11,9 +11,6 @@
 
 @interface ViewController : UIViewController<CLLocationManagerDelegate>
 
-@property (weak, nonatomic) IBOutlet UITextField *txtLatitude;
-@property (weak, nonatomic) IBOutlet UITextField *txtLongitude;
-
 @property (nonatomic, retain) CLLocationManager *locationManager;
 
 @end
